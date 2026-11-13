@@ -15,7 +15,18 @@ export const cartSlice = createSlice({
                     quantity: 1
                 })
             }
-            
+        },
+        decreaseQuantity: (state, action) => {
+            const productId = action.payload
+            const existingItem = state.find((item) => item.id === productId)
+
+            if (existingItem) {
+                if (existingItem.quantity > 1){
+                    existingItem.quantity -= 1
+                } else {
+                    return state.filter((item) => item.id !== productId)
+                }
+            }
         }
     }
 })
