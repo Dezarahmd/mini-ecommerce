@@ -5,31 +5,38 @@ export const cartSlice = createSlice({
     initialState: [],
     reducers: {
         addToCart: (state, action) => {
-            const newItem = action.payload
-            const existingItem = state.find((item) => item.id === newItem.id)
+            // Perbaikan 1: Gunakan action.payload sebagai objek produk baru
+            const product = action.payload; 
+            const existingItem = state.find((item) => item.id === product.id);
+            
             if (existingItem) {
-                existingItem.quantity += 1
+                existingItem.quantity += 1;
             } else {
                 state.push({
-                    ...newItem,
+                    ...product,
                     quantity: 1
-                })
+                });
             }
         },
         decreaseQuantity: (state, action) => {
-            const productId = action.payload
-            const existingItem = state.find((item) => item.id === productId)
+            const productId = action.payload;
+            const existingItem = state.find((item) => item.id === productId);
 
             if (existingItem) {
-                if (existingItem.quantity > 1){
-                    existingItem.quantity -= 1
+                if (existingItem.quantity > 1) {
+                    existingItem.quantity -= 1;
                 } else {
-                    return state.filter((item) => item.id !== productId)
+                    return state.filter((item) => item.id !== productId);
                 }
             }
+        },
+        removeFromCart: (state, action) => {
+            const productId = action.payload;
+            return state.filter((item) => item.id !== productId)
         }
     }
-})
+});
 
-export const {addToCart} = cartSlice.actions;
-export default cartSlice.reducer
+// Perbaikan 2: Ekspor juga decreaseQuantity
+export const { addToCart, decreaseQuantity, removeFromCart } = cartSlice.actions;
+export default cartSlice.reducer;
