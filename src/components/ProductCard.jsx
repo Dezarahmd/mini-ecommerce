@@ -1,4 +1,12 @@
+import { useDispatch } from "react-redux"
+import { addToCart } from "../features/cart/cartSlice"
+
 export default function ProductCard({product}) {
+    const dispatch = useDispatch()
+
+    function handleAddToCart(){
+        dispatch(addToCart(product))
+    }
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
             <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
@@ -16,7 +24,7 @@ export default function ProductCard({product}) {
                         Rp {product.price.toLocaleString('id-ID')}
                     </p>
                 </div>
-                <button className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 text-sm flex items-center justify-center gap-2 shadow-sm">
+                <button className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 text-sm flex items-center justify-center gap-2 shadow-sm" onClick={handleAddToCart}>
                     <span >
                         + Tambah ke keranjang
                     </span>

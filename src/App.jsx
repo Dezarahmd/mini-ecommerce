@@ -1,7 +1,10 @@
+import Cart from "./components/Cart"
 import ProductCard from "./components/ProductCard"
 import products from "./data/product"
+import { useSelector } from "react-redux"
 
 function App() {
+  const cart = useSelector((state) => state.cart)
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Daftar Produk</h2>
@@ -9,6 +12,12 @@ function App() {
         {products.map((item) => (
           <ProductCard key={item.id} product={item}/>
         ))}
+      </div>
+      <div>
+        <p>{cart.length}</p>
+      </div>
+      <div>
+        <Cart/>
       </div>
     </div>
   )
