@@ -1,7 +1,18 @@
 import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { addToCart, decreaseQuantity } from "../features/cart/cartSlice"
 
 export default function Cart(){
     const cart = useSelector((state) => state.cart)
+    const dispatch = useDispatch()
+
+    function handleAddToCart(item){
+        dispatch(addToCart(item))
+    }
+
+    function handleDecreaseQuantity(id){
+        dispatch(decreaseQuantity(id))
+    }
 
     if (cart.length === 0) {
         return (
@@ -25,7 +36,11 @@ export default function Cart(){
                         <p className="font-semibold text-blue-600">
                             Total: Rp {(item.price * item.quantity).toLocaleString('id-ID')}
                         </p>
-                    </div>
+                        <div className="gap-3 flex mt-2">
+                            <button className="bg-blue-500 py-0.2 px-2 rounded-lg text-white" onClick={() => handleDecreaseQuantity(item.id)}>-</button>
+                            <button className="bg-blue-500 py-0.2 px-2 rounded-lg text-white" onClick={() => handleAddToCart(item)}>+</button>
+                        </div>
+                    </div>  
                 </div>
             ))}
         </div>
