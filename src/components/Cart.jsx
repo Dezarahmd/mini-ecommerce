@@ -5,6 +5,8 @@ import { Trash } from "lucide-react"
 
 export default function Cart(){
     const cart = useSelector((state) => state.cart)
+        console.log("Redux state:", cart)
+
     const dispatch = useDispatch()
     const totalPrice = cart.reduce((total, item) => 
         total + (item.price * item.quantity), 0
